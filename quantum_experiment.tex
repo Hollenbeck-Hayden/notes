@@ -1,0 +1,132 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, portrait, margin=0.75in]{geometry}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\tableofcontents
+\pagebreak
+
+\section{Photoelectric Effect}
+
+\subsection{Experiment}
+A cathode is held at a potential $+V$, while a metal anode is connected to ground.
+Monochromatic light is shined on the anode, causing it to emit electrons. When the
+electrons hit the cathode, the circuit is completed, causing a discharge current 
+$i_{\text{discharge}}$ to flow. Notably, the discharge current occurs whenever
+the kinetic energy of the electrons exceeds the potential barrier of the voltage:
+\begin{equation*}
+	E_{\text{kin}} > e \cdot V
+\end{equation*}
+
+For a fixed wavelength of light $\nu$ shown at intensity $I$, the discharge current
+is 0 up until some voltage $V_0$ called the \emph{stopping voltage}, and then increased
+until a saturation point. The saturation current is proportional to the intensity of
+the light.
+
+The stopping voltage $V_0$ does not depend upon the intensity, but does depend on
+the frequency $\nu$, for which it is 0 up until some $\nu_0$ then linearly increases
+with $\nu$. Furthermore, once the process begins, electrons are ejected almost
+immediately (roughly $10^{-9}$ seconds). 
+
+\subsection{Classical Predictions}
+Imagine an electron in some potential well in the metal, with some energy difference
+(called the work function $w$) required to escape. Assuming the electron lives in
+a sphere of Bohr radius $a_B$, then we can estimate the escape time as:
+\begin{equation*}
+	I = \frac{E}{St} \quad \implies \quad t = \frac{w}{a_B^2 I} \approx 10^{-2} s
+\end{equation*}
+which is seven orders of magnitude difference. The kinetic energy of the electron
+may be determined by approximating the electron has being driven by the electric
+field wave:
+\begin{equation*}
+	m \ddot{x} = e \mathcal{E} \cos \omega t
+\end{equation*}
+So the kinetic energy is roughly:
+\begin{equation*}
+	\frac{1}{2} m \dot{x}^2 \propto \mathcal{E}^2 \frac{1}{\omega^2} = eV_0
+\end{equation*}
+As the frequency of the light increases, then the stopping voltage should be smoothly
+decreasing! The electrons have greater kinetic energy, and therefore should be able
+to readily cross the vacuum to the cathode for higher frequency light.
+
+\subsection{Quantum Theory}
+Here we only need to quantize electrons in the metal. That is, they accept energy
+from light proportional to its frequency:
+\begin{equation*}
+	E_{\text{kin}} = h \nu - w
+\end{equation*}
+
+The stopping voltage is then given by
+\begin{equation*}
+	V_0 = \max\left\{ 0, \frac{1}{e}(h\nu - w) \right\}
+\end{equation*}
+
+and the stopping frequency by:
+\begin{equation*}
+	\nu_0 = \frac{1}{h} w
+\end{equation*}
+
+\section{Double-Slit Experiment}
+Consider particles moving perpendicular to a plane with two slits. Classically, we
+expect the opposite wall to have two Gaussian peaks centered on the slits. However,
+we instead see that the diffraction matches the pattern of a wave.
+
+Let $\omega$ be the frequency of the incident plane wave, and $r_1,r_2$ the distance
+from the measurement point to the first and second slit respectively. We can write
+the amplitude as
+\begin{equation*}
+\begin{split}
+	A
+		&= A_0 \cos(kr_1 - \omega t) + A_0 \cos(kr_2 - \omega t) \\
+		&= 2A_0 \cos\left(k\frac{r_1 + r_2}{2} - \omega t\right)\cos\left(k\frac{r_1-r_2}{2}\right) \\
+\end{split}
+\end{equation*}
+The intensity is:
+\begin{equation*}
+	I = |A|^2 = A_0^2 \cos^2\left(k\frac{r_1+r_2}{2}-\omega t\right) \cos^2\left(k\frac{r_1-r_2}{2}\right)
+\end{equation*}
+when averaged over a period, $\cos^2(\dots - \omega t) = 1/2$. The maxima are then
+at
+\begin{equation*}
+	\frac{2\pi}{\lambda} \frac{|r_1-r_2|}{2} = n\pi
+\end{equation*}
+where $n \in \mathbb{Z}$. 
+
+\section{Davisson-Germer}
+
+\subsection{Experiment}
+An electron gun is aimed at a perpendicular sheet of single metal crystal. The experiment
+measures the number of electrons deflected off of the crystal at a given angle.
+
+Classically, we expect the count to smoothly decrease as the angle of deflection
+increases. However, at some angle $\theta_0(V)$ (as a function of voltage)
+there's a spike in counts.
+
+\subsection{Quantum Theory}
+Diffraction of electrons as though they were waves, which again provides evidence
+for wave-particle duality. The wavelength of the electron is given by:
+\begin{equation*}
+	\lambda_{dB} = \frac{h}{p}
+\end{equation*}
+where $p$ is its momentum. At a high enough voltage, the ejected electron has a
+wavelength short enough to probe the lattice spacing of the crystal.
+
+The results are described by Bragg's law. Consider the first two layers of the
+crystal. An incident plane wave bounces off the top layer, and reflects off of it.
+The same plane wave bounces off the second layer directly below the first reflection,
+picking up a phase as it leaves the crystal, which is constructive precisely when
+\begin{equation*}
+	2 d \sin \theta = n \lambda_{dB}
+\end{equation*}
+for some $n \in \mathbb{Z}$, incident angle $\theta$, and lattice spacing $d$.
+
+\section{Stern-Gerlach}
+
+\end{document}

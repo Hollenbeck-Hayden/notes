@@ -1,0 +1,327 @@
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=0.5in]{geometry}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+
+\setlength{\parskip}{1em}
+
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Defn}[section]
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{prop}{Proposition}[section]
+
+\newenvironment{problem}[1]
+    {\noindent
+    \textbf{#1})
+    }
+    {
+    \vspace{12pt}
+    }
+
+\newcommand{\sym}{\text{Sym }}
+\newcommand{\antisym}{\text{AntiSym }}
+
+\begin{document}
+
+\section{Symmetrization of Rank-2 Tensors}
+
+\begin{defn}[Symmetric and Antisymmetric Tensor]
+    A rank-2 tensor $S^{\mu\nu}$ is \textbf{symmetric} if it's the same under exchange of its indices
+    $\mu$ and $\nu$:
+    \begin{equation*}
+        S^{\mu\nu} = S^{\nu\mu}
+    \end{equation*}
+    Examples: stress-energy tensor $\mathcal{T}^{\mu\nu}$; Kronecker-Delta $\delta^{\mu\nu}$; Lorentz metric
+    $\eta^{\mu\nu}$.
+    
+    A rank-2 tensor $A^{\mu\nu}$ is \textbf{antisymmetric} if it's the opposite under exchange of its indices:
+    \begin{equation*}
+        A^{\mu\nu} = -A^{\nu\mu}
+    \end{equation*}
+    Examples: electromagnetic field tensor $F^{\mu\nu}$
+\end{defn}
+
+\begin{defn}[Symmetrization and Antisymmetrization]
+    Given an arbitrary rank-2 tensor $T^{\mu\nu}$, we may define its \textbf{symmetrization} as
+    \begin{equation*}
+        \sym T^{\mu\nu} = T^{[\mu\nu]} = \frac{T^{\mu\nu} + T^{\nu\mu}}{2}
+    \end{equation*}
+    and its \textbf{antisymmetrization} as
+    \begin{equation*}
+        \antisym T^{\mu\nu} = T^{\{\mu\nu\}} = \frac{T^{\mu\nu} - T^{\nu\mu}}{2}
+    \end{equation*}
+\end{defn}
+
+For the following corollaries, let $T^{\mu\nu}$ be an arbitrary tensor, $S^{\mu\nu}$ be an arbitrary
+symmetric tensor, and $A^{\mu\nu}$ be an arbitrary antisymmetric tensor.
+
+\begin{prop}[Symmetric/Antisymmetric Decomposition]
+    Symmetrization and antisymmetrization form a complete, disjoint set of projection operators of
+    the set of rank-2 tensors onto the sets of symmetric and antisymmetric rank-2 tensors respectively.
+    That is, for any given tensor $T^{\mu\nu}$, we may uniquely write it terms of symmetric and antisymmetric
+    components:
+    \begin{equation*}
+        T^{\mu\nu} = T^{[\mu\nu]} + T^{\{\mu\nu\}}
+    \end{equation*}
+\end{prop}
+
+\textbf{Proof:}
+We'll first show that $\sym$ and $\antisym$ map tensors to symmetric and antisymmetric tensors respectively:
+\begin{equation*}
+\begin{split}
+    \sym T^{\nu\mu} &= \frac{T^{\nu\mu} + T^{\mu\nu}}{2} = \sym T^{\mu\nu} \\
+    \antisym T^{\nu\mu} &= \frac{T^{\nu\mu} - T^{\mu\nu}}{2} = - \antisym T^{\mu\nu} \\
+\end{split}
+\end{equation*}
+Now we'll show that $\sym$ and $\antisym$ are projection operators:
+\begin{equation*}
+\begin{split}
+    \sym \sym T^{\mu\nu} &= \sym \frac{T^{\mu\nu} + T^{\nu\mu}}{2} = \frac{1}{2} \left( \sym T^{\mu\nu} + \sym T^{\nu\mu} \right) \\
+        &= \frac{1}{2} \left( \sym T^{\mu\nu} + \sym T^{\mu\nu} \right) = \sym T^{\mu\nu} \\
+    \antisym \antisym T^{\mu\nu} &= \antisym \frac{T^{\mu\nu} - T^{\nu\mu}}{2} = \frac{1}{2} \left( \antisym T^{\mu\nu} - \antisym T^{\nu\mu} \right) \\
+        &= \frac{1}{2} \left( \antisym T^{\mu\nu} + \antisym T^{\mu\nu} \right) = \antisym T^{\mu\nu} \\
+\end{split}
+\end{equation*}
+And that they're disjoint projections:
+\begin{equation*}
+\begin{split}
+    \sym \antisym T^{\mu\nu} = \sym \frac{T^{\mu\nu} - T^{\nu\mu}}{2} = \frac{T^{\mu\nu} + T^{\nu\mu} - T^{\nu\mu} - T^{\mu\nu}}{4} = 0 \\
+    \antisym \sym T^{\mu\nu} = \antisym \frac{T^{\mu\nu} + T^{\nu\mu}}{2} = \frac{T^{\mu\nu} - T^{\nu\mu} + T^{\nu\mu} - T^{\mu\nu}}{4} = 0 \\
+\end{split}
+\end{equation*}
+And finally, they're complete:
+\begin{equation*}
+\begin{split}
+    (\sym + \antisym) T^{\mu\nu}
+        &= \frac{T^{\mu\nu} + T^{\nu\mu}}{2} + \frac{T^{\mu\nu} - T^{\nu\mu}}{2} = T^{\mu\nu} \\
+\end{split}
+\end{equation*}
+
+This should match your intuition for these words: there's no difference between a symmetric tensor and a
+symmetrized tensor, and antisymmetric tensors have no symmetric component (and mutatus mutandi for 
+antisymmetric tensors).
+
+For some more examples, here's rank-2 tensors made out of rank-1 tensors (vectors):
+\begin{equation*}
+\begin{split}
+    \sym p^\mu q^\nu &= \frac{p^\mu q^\nu + p^\nu q^\mu}{2} \\
+    \antisym p^\mu q^\nu &= \frac{p^\mu q^\nu - p^\nu q^\mu}{2} \\
+    \sym p^\mu p^\nu &= p^\mu p^\nu \\
+    \antisym p^\mu p^\nu &= 0 \\
+\end{split}
+\end{equation*}
+Please not that multiplying by a scalar doesn't change whether a tensor is symmetric or antisymmetric
+or neither, so $p^\mu q^\nu + p^\nu q^\mu$ is still and symmetric tensor, it's just twice the symmetrization
+of $p^\mu q^\nu$. 
+
+\begin{prop}[Contraction Symmetric and Antisymmetric Tensors]
+    The full contraction of a symmetric tensor and antisymmetric tensor is zero.
+\end{prop}
+
+\textbf{Proof:}
+\begin{equation*}
+\begin{split}
+    (\sym T^{\mu\nu}) (\antisym T_{\mu\nu})
+        &= \frac{1}{4} \left( T^{\mu\nu} + T^{\nu\mu} \right) \left( T_{\mu\nu} - T_{\nu\mu} \right) \\
+        &= \frac{1}{4} \left( T^{\mu\nu} T_{\mu\nu} + T^{\nu\mu} T_{\mu\nu} - T^{\mu\nu} T_{\nu\mu} - T^{\nu\mu} T_{\nu\mu} \right) \\
+        &= \frac{1}{4} \left( T^{\mu\nu} T_{\mu\nu} + T^{\nu\mu} T_{\mu\nu} - T^{\nu\mu} T_{\mu\nu} - T^{\mu\nu} T_{\mu\nu} \right) \\
+        &= 0 \\
+\end{split}
+\end{equation*}
+
+\begin{prop}[Contraction of Arbitrary Tensors]
+    For two rank-2 tensors $T^{\mu\nu}$ and $U^{\mu\nu}$, their contraction is just the sum of the
+    contractions of their (anti)symmetrized components:
+    \begin{equation*}
+        T^{\mu\nu} U_{\mu\nu} = (\sym T^{\mu\nu})(\sym U_{\mu\nu}) + (\antisym T^{\mu\nu})(\antisym U_{\mu\nu})
+    \end{equation*}
+\end{prop}
+\textbf{Proof:} Follows immediately from expanding the tensors into their symmetric and antisymmetric
+components, multiplying out the terms, and cancelling the cross terms by the previous propositions.
+
+\begin{prop}[Contractions of Products of Vectors]
+    We often come across contractions of sets of symmetric or antisymmetric vectors. Here's some useful
+    identities.
+    \begin{equation*}
+    \begin{split}
+        (p^\mu q^\nu + p^\nu q^\mu) (a_\mu b_\nu + a_\nu b_\mu) 
+            &= 4 (\sym p^\mu q^\nu) (\sym a_\mu b_\nu) \\
+            &= \left[ (p \cdot a) (q \cdot b) + (p \cdot b) (q \cdot a) + (p \cdot b) (q \cdot a) + (p \cdot a) (q \cdot b) \right]\\
+            &= 2 \left[ (p \cdot a)(q \cdot b) + (p \cdot b)(q \cdot a) \right] 
+    \end{split}
+    \end{equation*}
+    \begin{equation*}
+    \begin{split}
+        \left( p^\mu q^\nu - p^\nu q^\mu \right) \left( a_\mu b_\nu - a_\nu b_\mu \right)
+            &= 4 (\antisym p^\mu q^\nu) (\antisym a_\mu b_\nu) \\
+            &= \left[ (p \cdot a)(q \cdot b) - (p \cdot b)(q \cdot a) - (p \cdot b)(q \cdot a) + (p \cdot a)(q \cdot b) \right] \\
+            &= 2 \left[ (p \cdot a)(q \cdot b) - (p \cdot b)(q \cdot a) \right] \\
+    \end{split}
+    \end{equation*}
+    \begin{equation*}
+    \begin{split}
+        (p^\mu q^\nu + p^\nu q^\mu) (p_\mu q_\nu + p_\nu q_\mu)
+            &= 4 (\sym p^\mu q^\nu) (\sym p_\mu q_\nu) \\
+            &= 2 \left[ p^2 q^2 + (p \cdot q)^2 \right] \\
+    \end{split}
+    \end{equation*}
+    Note that because of symmetry, the only terms we can make is $(p \cdot a)(q \cdot b)$ and $(p \cdot b)(q \cdot a)$
+    up to signs and constant factors.
+\end{prop}
+
+\section{Decomposition of Antisymmetric Rank-2 Tensors}
+We'll be working in Minkowski space with the metric
+\begin{equation*}
+    \eta = \text{diag}(+,-,-,-)
+\end{equation*}
+
+Consider the (arbitrary) rank-2 antisymmetric tensor $F^{\mu\nu}$. It may be uniquely expressed by the
+following 3-vectors $\bm{E}$ and $\bm{B}$:
+\begin{equation*}
+\begin{split}
+    F^{\mu \mu} &= 0 \\
+    F^{0i} &= E^i \\
+    F^{ij} &= -\epsilon^{ijk} B^k \\
+\end{split}
+\end{equation*}
+The $F^{\mu\nu}$ tensor can then be written as:
+\begin{equation*}
+    F^{\mu\nu}
+    =
+    \begin{pmatrix}
+        0 & E^x & E^y & E^z \\
+        & 0 & -B^z & B^y \\
+        & & 0 & -B^x \\
+        & & & 0 \\
+    \end{pmatrix}
+\end{equation*}
+where the lower half is the negative of the upper half. We may also write the vector components in terms
+of the tensor:
+\begin{equation*}
+\begin{split}
+    E^i &= F^{0i} \\
+    B^i &= -\frac{1}{2} \epsilon^{ijk} F^{jk} \\
+\end{split}
+\end{equation*}
+The signs and normalizations are chosen to match the familiar electromagnetic field tensor, electric fields,
+and magnetic fields.
+
+\textbf{Proof:}
+The time-like field is trivially satisfied by these equations:
+\begin{equation*}
+    E^i = F^{0i} = E^i
+\end{equation*}
+And the space-like field:
+\begin{equation*}
+\begin{split}
+    B^i
+        &= -\frac{1}{2} \epsilon^{ijk} F^{jk} \\
+        &= -\frac{1}{2} \epsilon^{ijk} \left( -\epsilon^{jkl} B^l \right) \\
+        &= \frac{1}{2} (2\delta^{il}) B^l = B^i \\
+\end{split}
+\end{equation*}
+
+\begin{prop}[Contractions of Antisymmetric Tensors Into Contractions of 3-Vectors]
+    Consider two antisymmetric rank-2 $F^{\mu\nu}$ and $G^{\mu\nu}$ with decompositions into 3-vectors
+    \begin{equation*}
+    \begin{split}
+        F^{0i} &= a^i \qquad \qquad G^{0i} = \alpha^i \\
+        F^{ij} &= \epsilon^{ijk} b^k \qquad \qquad G^{ij} = \epsilon^{ijk} \beta^k \\
+    \end{split}
+    \end{equation*}
+    Then the total contraction of these two tensors in terms of the three vectors is:
+    \begin{equation*}
+    \begin{split}
+        F^{\mu\nu} G_{\mu\nu}
+            &= 2 (a^i G_{0i} + b^k \frac{1}{2} \epsilon^{ijk} G_{ij}) \\
+            &= -2(\bm{a} \cdot \bm{\alpha} - \bm{b} \cdot \bm{\beta}) \\
+    \end{split}
+    \end{equation*}
+\end{prop}
+
+\textbf{Proof:}
+\begin{equation*}
+\begin{split}
+    F^{\mu\nu} G_{\mu\nu}
+        &= F^{0i} G_{0i} + F^{i0} G_{i0} + F^{ij} G_{ij} \\
+        &= 2 a^i G_{0i} + \epsilon^{ijk} b^k G_{ij} \\
+        &= 2 (a^i G_{0i} + b^k \frac{1}{2} \epsilon^{ijk} G_{ij}) \\
+        &= 2 (a^i (-\alpha^i) + b^k (\beta^k)) \\
+        &= -2 (\bm{a} \cdot \bm{\alpha} - \bm{b} \cdot \bm{\beta}) \\
+\end{split}
+\end{equation*}
+
+\textbf{Example:} Consider the generators of the Lorentz algebra
+\begin{equation*}
+    J^{\mu\nu} = i (x^\mu \partial^\nu - x^\nu \partial^\mu) 
+\end{equation*}
+which is an antisymmetric rank-2 tensor. This may be rewritten as two 3-vectors of generators
+\begin{equation*}
+\begin{split}
+    L^i &= \frac{1}{2} \epsilon^{ijk} J^{jk} \\
+    K^i &= J^{0i} \\
+\end{split}
+\end{equation*}
+and the Lorentz generators in terms of the 3-vectors
+\begin{equation*}
+\begin{split}
+    J^{0i} &= K^i \\
+    J^{ij} &= \epsilon^{ijk} L^k \\
+\end{split}
+\end{equation*}
+And so we have the component representation of the $J^{\mu\nu}$ tensor as
+\begin{equation*}
+    F^{\mu\nu}
+    =
+    \begin{pmatrix}
+        0 & K^x & K^y & K^z \\
+        & 0 & L^z & -L^y \\
+        & & 0 & L^x \\
+        & & & 0 \\
+    \end{pmatrix}
+\end{equation*}
+
+\textbf{Example:} Consider the parameterization of the infinitesimal transformation of Lorentz transformations
+in the 1/2-representation:
+\begin{equation*}
+    \Lambda_{1/2} = \exp\left( -\frac{i}{2} \omega_{\mu\nu} S^{\mu\nu} \right) \approx 1 - \frac{i}{2} \omega_{\mu\nu} S^{\mu\nu} 
+\end{equation*}
+Where $S^{\mu\nu}$ is an antisymmetric tensor
+\begin{equation*}
+    S^{\mu\nu} = \frac{i}{4} \left[ \gamma^\mu, \gamma^\nu \right] \\
+\end{equation*}
+Which in the Weyl basis we may decompose into
+\begin{equation*}
+\begin{split}
+    B^i &= S^{0i} = \frac{i}{4}
+        \begin{pmatrix}
+            \sigma^i & 0 \\
+            0 & -\sigma^i \\
+        \end{pmatrix} \\
+    \Sigma^i &= \epsilon^{ijk} S^{jk} \\
+\end{split}
+\end{equation*}
+and $\omega_{\mu\nu}$ is a set of infinitesimal parameters, which we decompose into two 3-vectors as above:
+\begin{equation*}
+\begin{split}
+    \omega^{0i} &= \beta^i \\
+    \omega^{jk} &= \epsilon^{ijk} \theta^k \\
+\end{split}
+\end{equation*}
+And so the infinitesimal transformation is:
+\begin{equation*}
+    \Lambda_{1/2} \approx 1 + i \left( \bm{\beta} \cdot \bm{B} - \bm{\theta} \cdot \bm{\Sigma} \right)
+        = \exp \left( i(\bm{\beta} \cdot \bm{B} - \bm{\theta} \cdot \bm{\Sigma}) \right) \\
+\end{equation*}
+
+\end{document}

@@ -1,0 +1,166 @@
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=0.5in]{geometry}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+
+\setlength{\parskip}{1em}
+
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Defn}[section]
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{corl}{Corollary}[section]
+
+\newenvironment{problem}[1]
+    {\noindent
+    \textbf{#1})
+    }
+    {
+    \vspace{12pt}
+    }
+
+\begin{document}
+
+\section{Free Particle Wavefunctions}
+
+\subsection{Non-Relativistic Particles}
+Schrodinger equation
+\begin{equation*}
+    0 = i \partial_t \psi - H \psi = \left( i \partial_t + \frac{\nabla^2}{2m} \right) \psi
+\end{equation*}
+Solution, where $E = \bm{p}^2 / 2m$:
+\begin{equation*}
+    \psi_p = N e^{-iEt + i \bm{p} \cdot \bm{x}}
+\end{equation*}
+Density and current
+\begin{alignat*}{3}
+    & \qquad && \rho && \bm{j} \\
+    & \text{Equation} \qquad && |\psi|^2 \qquad && \frac{1}{2mi} \left( \psi^* \nabla \psi - \psi \nabla \psi^* \right) \\
+    & \text{Free} \qquad && |N|^2 \qquad && \frac{\bm{p}}{m} |N|^2 \\
+\end{alignat*}
+
+\subsection{Scalar Field Equation}
+Klein-Gordon Equation
+\begin{equation*}
+    (-\partial_t^2 + \nabla^2) \phi = m^2 \phi
+\end{equation*}
+Solution, where $p^0 = E = \sqrt{\bm{p}^2 + m^2}$:
+\begin{equation*}
+    \phi = N e^{-iEt + i\bm{p} \cdot \bm{x}} = N e^{- i p \cdot x}
+\end{equation*}
+Density and current
+\begin{alignat*}{4}
+    & \qquad && \rho && \bm{j} && j^\mu \\
+    & \text{Equation} \qquad && i \left( \phi^* \partial_t \phi - \phi \partial_t \phi^* \right) \qquad && -i\left( \phi^* \nabla \phi - \phi \nabla \phi^* \right) \qquad && i\left( \phi^* \partial^\mu \phi - \phi \partial^\mu \phi^* \right) \\
+    & \text{Free} \qquad && 2E|N|^2 && 2\bm{p}|N|^2 \qquad && 2p^\mu |N|^2 \\
+\end{alignat*}
+Antiparticles (Feynman-Stuckelberg Interpretation)
+\begin{equation*}
+\begin{split}
+    j^\mu(\phi,-p) &= 2p^\mu |N|^2 = j^\mu(\phi^*,p) \\
+    \phi^* &= N e^{-i (-p) \cdot x} = N e^{i p \cdot x} \\
+\end{split}
+\end{equation*}
+Identify antiparticles $\phi^*$ as having opposite charge in the current. Antiparticles have positive energy
+and can be used instead of equivalent negative energy solutions.
+
+\subsection{Electrodynamics}
+Minimal coupling prescription
+\begin{equation*}
+    i \partial^\mu \to i \partial^\mu + e A^\mu 
+\end{equation*}
+
+\subsection{Scalar QED}
+Perturbative potential
+\begin{equation*}
+    V = -ie(\partial_\mu A^\mu + A^\mu \partial_\mu) - e^2 A^2
+\end{equation*}
+Electromagnetic current between states $i \to f$
+\begin{equation*}
+    j^{fi}_\mu = -ie(\phi^*_f \partial_\mu \phi_i - \phi_i \partial_\mu \phi^*_f) = -e N_i N_f (p_i + p_f)_\mu e^{i(p_f - p_i) \cdot x} 
+\end{equation*}
+
+Photon equation of motion and solution (from Maxwell's equations)
+\begin{equation*}
+\begin{split}
+    (-\partial_t^2 + \nabla^2) A^\mu &= j^\mu  \\
+    A^\mu &= -\frac{1}{q^2} j^\mu \\
+        &= \frac{-ig^{\mu\nu}}{q^2} j_\nu \\
+\end{split}
+\end{equation*}
+Photon propagator
+\begin{equation*}
+    \frac{-i g^{\mu\nu}}{q^2}
+\end{equation*}
+
+\section{Perturbation Theory}
+
+State transistion amplitude $i \to f$:
+\begin{equation*}
+\begin{split}
+    V_{fi}(t) &= \int \diff^3 x \, \phi_f^*(\bm{x},t) V(\bm{x},t) \phi_i(\bm{x},t) \\
+    T_{fi} &= -i \int \diff^4 x \phi^*_f(x) V(x) \phi_i(x) \\
+        &= -i \int_{-\infty}^\infty V_{fi}(t) \diff t \\
+\end{split}
+\end{equation*}
+
+Fermi's Golden Rule (assuming $V$ is time-independent)
+\begin{equation*}
+\begin{split}
+    W_{fi}
+        &= \int \rho(E_f) \diff E_f \, \lim_{T \to \infty} \frac{|T_{fi}|^2}{T} \\
+        &= 2\pi |V_{fi}|^2 \int \rho(E_f) \diff E_f \, \delta(E_f - E_i) \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} \diff t \\
+        &= 2\pi |V_{fi}|^2 \rho(E_i) \\
+\end{split}
+\end{equation*}
+ 
+State transition amplitude for $2 \to 2$ scattering (scalar QED):
+\begin{equation*}
+\begin{split}
+    T_{fi} &= -i \int j^{(1)}_\mu A^\mu \diff^4 x \\
+        &= -i \int j^{(1)}_\mu \frac{-i g^{\mu\nu}}{q^2} j^{(2)}_\nu \diff^4 x \\
+        &= N_A N_B N_C N_D (2\pi)^4 \delta(p_A + p_B - p_C - p_D) (-i\mathcal{M}) \\
+    -i\mathcal{M} &= ie(p_A + p_C)^\mu \left( -i \frac{g_{\mu\nu}}{q^2} \right) ie(p_B + p_D)^\nu \\
+\end{split}
+\end{equation*}
+
+\section{Cross-Section}
+
+The transition matrix element is
+\begin{equation*}
+    T_{n \to m}
+        = -i \bra{m} \int_{-\infty}^\infty H_I(t) \diff t \ket{n} = -i \bra{m} H_{int} \ket{n} 2\pi\delta(\omega) 
+\end{equation*}
+The probability is then
+\begin{equation*}
+    P_{n \to m}
+        = |T_{n \to m}|^2 = |\bra{m} H_{int} \ket{n}|^2 (2\pi)^2 \delta(\omega)^2
+\end{equation*}
+To compute the squared delta function, rewrite it as a Fourier transform over some finite time $T$ and use
+the first delta function to set the second:
+\begin{equation*}
+\begin{split}
+    (2\pi)^2 \delta(\omega)^2
+        &= 2\pi\delta(\omega) \lim_{T \to \infty} \int_{-T/2}^{T/2} e^{-i\omega t} \diff t \\
+        &= 2\pi\delta(\omega) \lim_{T \to \infty} \int_{-T/2}^{T/2} \diff t \\
+        &= 2\pi\delta(\omega) \lim_{T \to \infty} T \\
+\end{split}
+\end{equation*}
+This is obviously divergent, so instead we take the probability rate
+\begin{equation*}
+\begin{split}
+    W_{n \to m}
+        &= \lim_{T \to \infty} \frac{P_{n \to m}}{T} = |\bra{m} H_{int} \ket{n}|^2 2\pi\delta(\omega)
+\end{split}
+\end{equation*}
+
+
+\end{document}

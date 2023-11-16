@@ -1,0 +1,772 @@
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=0.5in]{geometry}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\usepackage{slashed}
+\usepackage{simpler-wick}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    filecolor=blue,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\setlength{\parskip}{1em}
+
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\normord}[1]{:\mathrel{#1}:}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Defn}[section]
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{corl}{Corollary}[section]
+
+\newenvironment{problem}[1]
+    {\noindent
+    \textbf{#1})
+    }
+    {
+    \vspace{12pt}
+    }
+
+\begin{document}
+
+\tableofcontents
+
+\pagebreak
+
+\section{General Rules}
+
+\subsection{Feynamn Rule Procedure}
+
+Used to calculate the matrix scattering element from a diagram:
+\begin{equation*}
+    -i \mathcal{M}
+\end{equation*}
+
+\textbf{1. Momentum Conservation} At each vertex, there's a momentum conserving delta function
+\begin{equation*}
+    (2\pi)^4 \delta^{(4)} \left( \sum_i p_i \right) 
+\end{equation*}
+where the sign of $p_i$ is determined by momentum arrows on the diagram.
+
+\textbf{2. Internal Momenta} For each internal momenta $q$, integrate over it
+\begin{equation*}
+    \int \frac{\diff^4 q}{(2\pi)^4}
+\end{equation*}
+
+\textbf{3. Drop overall delta-function} There will be an overall momentum conserving delta function of
+incoming and outgoing momenta:
+\begin{equation*}
+    (2\pi)^4 \delta^{(4)}(p_{in} - p_{out})
+\end{equation*}
+just drop it.
+
+\textbf{4. Divide by symmetry factor} Divide by the symmetry factor of the diagram.
+
+\subsection{Unorganized Identies}
+
+\subsubsection{Delta Functions}
+\textbf{Delta-Function of Zero}: Let $V$ be the finite volume of space and $T$ be the finite duration of time.
+Then
+\begin{equation*}
+\begin{split}
+    2\pi \delta(0)
+        &= \int_{-T/2}^{T/2} e^{-i(0) t} \diff t = \int_{-T/2}^{T/2} \diff t = T \\
+    (2\pi)^3 \delta^3(0) &= V \\
+\end{split}
+\end{equation*}
+
+\subsubsection{Lorentz Invariant Measure}
+\begin{equation*}
+    \int \frac{\diff^3 p}{(2\pi)^3 2 \omega_p} = \int \frac{\diff^4 p}{(2\pi)^4} \theta(p^0) \delta(k^2 - m^2)
+\end{equation*}
+
+\subsection{Characterization Techniques}
+Physical quantities of a field solution may be calculated from the stress-energy tensor derived from the
+field's Lagrangian via Noether's theorem. For example, in scalar field theory, the tensor, energy, and
+momenta are given by:
+\begin{equation*}
+\begin{split}
+    T^{\mu\nu} &= \frac{\partial \mathcal{L}}{\partial (\partial_\mu \phi)}  \partial^\nu \phi - \mathcal{L} g^{\mu\nu} \\
+    H &= \int T^{00} \diff^3 x = \int (\pi \dot{\phi} - \mathcal{L}) \diff^3 x \\
+    P^i &= \int T^{0i} \diff^3 x = - \int \pi \partial_i \phi \diff^3 x \\
+\end{split}
+\end{equation*}
+If we're unsure the physical properties of a given solution, we may run it through the above machinery to
+explicitly determine its behavior. Generally we'll have some solution as the eigenvalue of the corresponding
+differential operator (e.g. $\omega_p$ for the Hamiltonian $i\partial_t$ or $\bm{k}$ for the momentum $i\nabla$)
+times the number operator in that Fourier mode (e.g. $a^\dagger_k a_k$).
+
+\textbf{Charge}: For $U(1)$ gauge symmetries
+
+\subsection{Second Quantization}
+\begin{enumerate}
+    \item Classical Lagrangian density: all fields are classical functions
+        \begin{equation*}
+            \mathcal{L} = \frac{1}{2} \partial_\mu \phi \partial^\mu \phi - \frac{1}{2} m^2 \phi^2 - \frac{\lambda}{4!}\phi^4
+        \end{equation*}
+    \item Classical Hamiltonian
+        \begin{equation*}
+        \begin{split}
+            \pi = \frac{\partial \mathcal{L}}{\partial \dot{\phi}} \qquad \qquad
+            H = \int (\pi \dot{\phi} - \mathcal{L}) \diff^3 x
+        \end{split}
+        \end{equation*}
+    \item Quantization: promote $\phi$ and $\pi$ to operators. Impose canonical commutation relations
+        \begin{equation*}
+            [\phi(\bm{x}), \pi(\bm{y})] = \delta^3(\bm{x} - \bm{y})
+        \end{equation*}
+        Now the Hamiltonian $H$, when written in these operators, is the familiar quantum mechanical
+        Hamiltonian.
+\end{enumerate}
+
+\subsection{Crossing Symmetry}
+Consider the process $AB \to CD$ with momenta $p_A, p_B, p_C$, and $p_D$. The matrix element is
+\begin{equation*}
+    \mathcal{M}_{AB \to CD} (p_A, p_B, p_C, p_D)
+\end{equation*}
+We may use charge conjugation to swap initial and final state particles. Using the Feynman-Stuckelberg
+interpretation of antiparticles, this will produce the same matrix element but with opposite momentum.
+
+\textbf{Example: }
+$A\overline{C} \to \overline{B}D$
+\begin{equation*}
+\begin{split}
+    \mathcal{M}_{AB \to CD}(p_A, p_B, p_C, p_D) &= \mathcal{M}_{A\overline{C} \to \overline{B}D}(p_A, -p_C, -p_B, p_D) \\
+    p_B &\leftrightarrow -p_C \\
+    s = (p_A + p_B)^2 &\to (p_A - p_C)^2 = t \\
+    t = (p_A - p_C)^2 &\to (p_A + p_B)^2 = s \\
+    u = (p_A - p_D)^2 &\to (p_A - p_D)^2 = u \\
+\end{split}
+\end{equation*}
+Crossing symmetry lets us reuse matrix element calculations by just swapping Mandelstam variables.
+
+\subsection{Classical Lagrangian and Hamiltonian Field Theory}
+
+\section{Fermions}
+
+\subsection{Gamma Matrices}
+
+\textbf{Dirac Representation}:
+
+\textbf{Chiral Representation}:
+
+\textbf{Conjugation Identities}:
+\begin{equation*}
+    \gamma^0 (\gamma^\mu)^\dagger \gamma^0 = \gamma^\mu \\
+\end{equation*}
+
+
+\subsection{Spinors}
+
+\textbf{Notation}:
+\begin{itemize}
+    \item General Dirac 4-spinors are $\psi$
+    \item Positive solutions to the Dirac equation are labelled $u^{(s)},v^{(s)}$ for $s = 1,2$. The
+        solutions $u$ are particles and $v$ are antiparticles.
+    \item Positive and negative solutions to the Dirac equation are labelled $u^{(i)}$ for $i=1,2,3,4$.
+\end{itemize}
+
+Dirac 4-spinor positive energy solutions:
+\begin{equation*}
+    u = N
+    \begin{pmatrix}
+        \phi \\
+        \frac{\bm{\sigma} \cdot \bm{p}}{E + m} \phi \\
+    \end{pmatrix}
+    \qquad \qquad
+    v = N
+    \begin{pmatrix}
+        \frac{\bm{\sigma} \cdot \bm{p}}{E + m} \chi \\
+        \chi \\
+    \end{pmatrix}
+\end{equation*}
+where $\phi,\chi$ are two spinors and $N = \sqrt{E + m}$ is a normalization. The negative energy solutions are
+related to $v$ by
+\begin{equation*}
+    u^{(3)}(p) = -v^{(2)}(-p) \qquad \qquad u^{(4)}(p) = v^{(1)}(-p)
+\end{equation*}
+
+\textbf{Dirac conjugate}:
+\begin{equation*}
+    \overline{\psi} = \psi^\dagger \gamma^0 
+\end{equation*}
+
+\textbf{Orthonormality}:
+\begin{equation*}
+    \begin{array}{ll}
+        \overline{u}^{(r)} u^{(s)} = 2m \delta^{rs} & \overline{u}^{(r)} v^{(s)} = 0 \\
+        \overline{v}^{(r)} v^{(s)} = -2m \delta^{rs} & \overline{v}^{(r)} u^{(s)} = 0 \\
+    \end{array}
+\end{equation*}
+This determines the normalization $N = \sqrt{E + m}$. 
+
+\textbf{Completeness}:
+\begin{equation*}
+\begin{split}
+    \sum_s u^{(s)} \overline{u}^{(s)} &= \slashed{p} + m \\
+    \sum_s v^{(s)} \overline{v}^{(s)} &= \slashed{p} - m \\
+\end{split}
+\end{equation*}
+
+\textbf{Conjugation of Scalar Product}
+\begin{equation*}
+\begin{split}
+    \left(\overline{\psi}^{(r)} \gamma^\mu \psi^{(s)}\right)^\dagger
+        &= \left( \psi^{(r)\dagger} \gamma^0 \gamma^\mu \psi^{(s)} \right)^\dagger \\
+        &= \psi^{(s)\dagger} \gamma^{\mu,\dagger} \gamma^0 \psi^{(r)} \\
+        &= \overline{\psi}^{(s)} \gamma^0 \gamma^{\mu,\dagger} \gamma^0 \psi^{(r)} \\
+        &= \overline{\psi}^{(s)} \gamma^\mu \psi^{(r)} \\
+\end{split}
+\end{equation*}
+
+\subsection{Helicity}
+\textbf{Helicity}: The helicity operator is defined as
+\begin{equation*}
+    h = \frac{\hat{\bm{S}} \cdot \hat{\bm{p}}}{|\bm{p}|}
+\end{equation*}
+for spin-1/2 fermions, they have helicity $\pm \frac{1}{2}$, where right-handed is positive.
+
+Massless fermions have definite helicity since their momentum points in the same direction in all frames,
+whereas there's always a frame for massive fermions where the momentum reverses and thus have opposite helicity.
+Massless fermions therefore may be decomposed into left and right handed Weyl spinors.
+
+\subsection{Chirality}
+\textbf{Handedness Projection Operators}:
+\begin{equation*}
+    P_L = \frac{1 - \gamma^5}{2} \qquad \qquad P_R = \frac{1 - \gamma^5}{2}
+\end{equation*}
+Identities (where $h = L,R$ and $\overline{h}$ is the opposite handedness of $h$):
+\begin{equation*}
+\begin{split}
+    P_L + P_R &= 1 \\
+    P_h^2 &= P_h \\
+    \gamma^\mu P_h &= P_{\overline{h}} \gamma^\mu \\
+    P_h^\dagger &= P_h \\
+\end{split}
+\end{equation*}
+\begin{equation*}
+\begin{split}
+    u_L &= P_L u \\
+    \overline{u} P_L &= u^\dagger \gamma^0 P_L \\
+        &= u^\dagger P_R \gamma^0 \\
+        &= u_R \gamma^0 = \overline{u}_R \\
+\end{split}
+\end{equation*}
+
+\section{Scalar Field Theory}
+
+\subsection{Real Fields}
+\begin{equation*}
+    \mathcal{L} = \frac{1}{2} (\partial_\mu \phi)(\partial^\mu \phi) - \frac{1}{2} m^2 \phi^2 - \frac{\mu}{3!} \phi^3 - \frac{\lambda}{4!} \phi^4
+\end{equation*}
+
+\textbf{Field Solution}:
+\begin{equation*}
+    \phi(\bm{x}) = \int \frac{\diff^3 p}{(2\pi)^3} \frac{1}{\sqrt{2\omega_p} } \left( a_p e^{-i \bm{p} \cdot \bm{x}} + a^\dagger_p e^{i \bm{p} \cdot \bm{x}} \right) \\
+\end{equation*}
+
+\textbf{1. External Lines} For amputated diagrams, they're just a factor of 1. Otherwise external lines are
+propagators.
+
+\textbf{2. Vertex Factors}:
+\begin{center}
+    \begin{tabular}{ccc}
+        3-point & \qquad & 4-point \\
+        \hline
+        $-i\mu$ & & $-i\lambda$
+    \end{tabular}
+\end{center}
+
+\textbf{3. Propagators}:
+\begin{equation*}
+    \tilde{D}(p) = \frac{i}{p^2 - m^2 + i\epsilon}
+\end{equation*}
+
+\textbf{Normalization}:
+\begin{equation*}
+\begin{split}
+    \ket{\bm{p}} &= \sqrt{2\omega_p} a^\dagger_p \ket{0} \\
+    \braket{\bm{p}|\bm{p}'} &= 2\omega_p (2\pi)^3 \delta^3(\bm{p} - \bm{p}') \\
+    \braket{\bm{p}|\bm{p}'} &= 2\omega_p (2\pi)^3 \delta^3(0) = 2\omega_p V \\
+\end{split}
+\end{equation*}
+
+\textbf{Creation Operators}:
+Creation a particle with momentum $\bm{p}$ at position $x$:
+\begin{equation*}
+\begin{split}
+    \phi(x) \ket{0} &= \int \frac{\diff^3 p}{(2\pi)^3 2\omega_p} e^{i p \cdot x} \ket{\bm{p}} \\
+\end{split}
+\end{equation*}
+
+\section{Quantum Electrodynamics (QED)}
+\textbf{1. External Lines} Following the arrows on a fermion line, start with the end of a fermion line
+and work backwards to get the right ordering. You should always start with a conjugate spinor and end
+with a spinor, thus making a scalar.
+
+\begin{center}
+    \begin{tabular}{cccc}
+        & Real Fermions & Antifermions & Photons \\
+        \hline
+        Incoming & $u$ & $\overline{v}$ & $\epsilon_\mu$ \\
+        Outgoing & $\overline{u}$ & $v$ & $\epsilon^*_\mu$ \\
+    \end{tabular}
+\end{center}
+
+\textbf{2. Vertex factors}:
+\begin{enumerate}
+    \item Each factor has $i g_e \gamma^\mu$
+    \item $g_e = - q' \sqrt{4 \pi \alpha}$ where $q'$ is the fractional electric charge of the fermion in units
+        of $e$.
+    \begin{enumerate}
+        \item $g_e = \sqrt{4\pi\alpha} $ for electrons
+        \item $g_e = -(2/3) \sqrt{4\pi\alpha}$ for up quarks
+    \end{enumerate}
+\end{enumerate}
+
+\textbf{3. Propagators} with 4-momentum $q$ and mass $m$ (note $q$ is in general off-shell)
+
+Fermion propagators
+\begin{equation*}
+    \frac{i(\slashed{q} + m)}{q^2 - m^2}
+\end{equation*}
+
+Photon propagators
+\begin{equation*}
+    \frac{-i g_{\mu\nu}}{q^2}
+\end{equation*}
+
+
+\section{Kinematics}
+
+\subsection{Maximum Product Energy}
+Consider a process in the CoM frame where we wish to determine the maximum energy a product could have.
+\begin{equation*}
+    \begin{pmatrix}
+        E_0 \\ 0
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        E \\ \bm{p}
+    \end{pmatrix}
+    + \sum_i
+    \begin{pmatrix}
+        E_i \\ \bm{p}_i
+    \end{pmatrix}
+\end{equation*}
+where $i$ indexes the other products. By momentum conservation $\bm{p} = -\sum \bm{p}_i$. Boost to the
+CoM frame of the products:
+\begin{equation*}
+\begin{split}
+    \begin{pmatrix}
+        E_{0,new} \\ \bm{p}_{0,new}
+    \end{pmatrix}
+        &=
+            \begin{pmatrix}
+                E_{new} \\ \bm{p}_{new}
+            \end{pmatrix}
+            + \sum_i
+            \begin{pmatrix}
+                E_{i,new} \\ \bm{p}_{i,new}
+            \end{pmatrix} \\
+        &=
+             \begin{pmatrix}
+                E_{new} \\ \bm{p}_{new}
+            \end{pmatrix}
+            +
+            \begin{pmatrix}
+                \sum_i E_i \\ 0
+            \end{pmatrix}
+\end{split}
+\end{equation*}
+Then $E_{new} = E_{0,new} - \sum E_{i,new}$ is minimized when there's no relative kinetic energy between the
+other products and $E_{i,new} = m_i$. The invariant mass gives
+\begin{equation*}
+    \left( \sum_i m_i \right)^2 = (p')^2 = \left( \sum_i E_i \right)^2 - \bm{p}^2
+\end{equation*}
+So the original CoM energy conservation gives
+\begin{equation*}
+\begin{split}
+    (E_0 - E)^2 &= \left( \sum_i E_i \right)^2 = \left( \sum_i m_i \right)^2 + \bm{p}^2 \\
+    E_0^2 - 2E_0 E + m^2 + \bm{p}^2 &= \\
+    E &= \frac{E_0^2 + m^2 - \left( \sum_i m_i \right)^2}{2E_0} \\
+\end{split}
+\end{equation*}
+
+\subsection{2-Scattering in Center of Mass Frame}
+Incoming particles 1 and 2; outgoing particles 3 and 4.
+\begin{equation*}
+\begin{split}
+    E_i &= \sqrt{\bm{p}_i^2 + m_i^2} \\
+    \bm{p} &= \bm{p}_1 = -\bm{p}_2 \\
+    \bm{p}' &= \bm{p}_3 = - \bm{p}_4 \\
+    \bm{p} \cdot \bm{p}' &= |\bm{p}| |\bm{p}'| \cos\theta \\
+\end{split}
+\end{equation*}
+Energy conservation:
+\begin{equation*}
+    E_1 + E_2 = E_3 + E_4
+\end{equation*}
+Mandelstam variables:
+\begin{equation*}
+\begin{split}
+    s &= (p_1 + p_2)^2 = m_1^2 + m_2^2 + 2 p_1 \cdot p_2 \\
+      &= (p_3 + p_4)^2 = m_3^2 + m_4^2 + 2 p_3 \cdot p_4 \\
+    t &= (p_1 - p_3)^2 = m_1^2 + m_3^2 - 2 p_1 \cdot p_3 \\
+      &= (p_2 - p_4)^2 = m_2^2 + m_4^2 - 2 p_2 \cdot p_4 \\
+    u &= (p_1 - p_4)^2 = m_1^2 + m_4^2 - 2 p_1 \cdot p_4 \\
+      &= (p_2 - p_3)^2 = m_2^2 + m_3^2 - 2 p_2 \cdot p_3 \\
+\end{split}
+\end{equation*}
+
+\subsubsection{s-channel}
+Assume $m = m_1 = m_2$ and $M = m_3 = m_4$
+\begin{equation*}
+\begin{split}
+    E_1 &= E_2 \\
+    E_3 &= E_4 \\
+    |\bm{p}'| &= |\bm{p}| \cos\theta \\
+\end{split}
+\end{equation*}
+Dot products
+\begin{equation*}
+\begin{split}
+    p_1 \cdot p_3 &= p_2 \cdot p_4 = \frac{m^2 + M^2 - t}{2} \\
+        &= E E' - \bm{p} \cdot \bm{p}' = E^2 - \sqrt{(E^2-m^2)(E^2-M^2)} \cos\theta \\
+    p_1 \cdot p_4 &= p_2 \cdot p_3 = \frac{m^2 + M^2 - u}{2} \\
+        &= E E' + \bm{p} \cdot \bm{p}' = E^2 + \sqrt{(E^2-m^2)(E^2-M^2)} \cos\theta \\
+    p_1 \cdot p_2 &= \frac{s - 2m^2}{2} \\
+    p_3 \cdot p_4 &= \frac{s - 2M^2}{2} \\
+    s &= 4E^2 \\
+\end{split}
+\end{equation*}
+
+\subsubsection{t-channel}
+
+\subsubsection{u-channel}
+
+\section{Cross Sections and Decay Rates}
+
+\subsection{Fermi's Golden Rule}
+\textbf{Non-Relativistic Case:}
+Consider the transition matrix element from $\ket{n}$ to $\ket{m}$ at first order in the Dyson series expansion:
+\begin{equation*}
+    T_{n \to m} = -i \bra{m} \int_{-\infty}^\infty H_I(t) \diff t \ket{n} = -i \bra{m} H_{int} \ket{n} 2\pi\delta(\omega)
+\end{equation*}
+The probability is
+\begin{equation*}
+\begin{split}
+    P_{n \to m}
+        &= |T_{n \to m}|^2 = |\bra{m} H_{int} \ket{n}|^2 (2\pi)^2 \delta(\omega)^2 = |\bra{m} H_{int} \ket{n}|^2 2\pi\delta(\omega) T \\
+\end{split}
+\end{equation*}
+\textbf{Fermi's Golden Rule}:
+\begin{equation*}
+    W_{n \to m} = \lim_{T \to \infty} \frac{P_{n \to m}}{T} = |\bra{m} H_{int} \ket{n}|^2 2\pi\delta(\omega)
+\end{equation*}
+
+\textbf{Relativistic Case:}
+We may express the transition matrix through the matrix element $\mathcal{M}$:
+\begin{equation*}
+\begin{split}
+    T_{i \to f}
+        &= -i \bra{f} \int_{-\infty}^\infty H_I(t) \ket{i} = -i \bra{f} \int V_I(x) \diff^4 x \ket{i} = -i \mathcal{M} (2\pi)^4 \delta^4(p_i - p_f) \\
+    P_{i \to f}
+        &= \frac{|\mathcal{M}|^2 (2\pi)^4 \delta^4(p_i - p_f) V T}{\braket{i|i} \braket{f|f}} = |\mathcal{M}|^2 (2\pi)^4 \delta^4(p_i - p_f) V T \prod_{i} \frac{1}{2E_i V} \prod_{f} \frac{1}{2E_f V} \\
+\end{split}
+\end{equation*}
+We introduce the measure for the density of the final states:
+\begin{equation*}
+\begin{split}
+    \diff W_{i \to f}
+        &= |\mathcal{M}|^2 (2\pi)^4 \delta^4(p_i - p_f) V \prod_i \frac{1}{2E_i V} \prod_f \frac{1}{2E_f V} \frac{V \diff^3 p_f}{(2\pi)^3} \\
+        &= |\mathcal{M}|^2 (2\pi)^4 \delta^4(p_i - p_f) V \prod_i \frac{1}{2E_i V} \prod_f \frac{\diff^3 p_f}{(2\pi)^3 2E_f} \\
+\end{split}
+\end{equation*}
+
+\subsection{Cross Section Formulae}
+
+\textbf{Definition}: Let $F$ be the incident flux and $W$ be the transition rate. The cross-section is 
+defined as:
+\begin{equation*}
+    F \diff \sigma = \diff W
+\end{equation*}
+The flux is given by
+\begin{equation*}
+\begin{split}
+    F
+        &= \frac{N_1 N_2 |\bm{v}_1 - \bm{v}_2|}{V}
+        = \frac{N_1 N_2}{V} \left| \frac{\bm{p}_1}{E_1} - \frac{\bm{p}_2}{E_2} \right| \\
+\end{split}
+\end{equation*}
+
+$2 \to 2$ \textbf{Differential Cross Section in CoM Frame}:
+\begin{equation*}
+    \frac{\diff \sigma}{\diff \Omega} = \left( \frac{\hbar c}{8\pi} \right)^2 \frac{\mathcal{S} \overline{|\mathcal{M}|^2}}{(E_1 + E_2)^2} \frac{|\bm{p}_f|}{|\bm{p}_i|}
+\end{equation*}
+
+$2 \to N$ \textbf{Differential Cross Section in CoM Frame}:
+\begin{equation*}
+    \diff \sigma = \frac{\hbar^2 \mathcal{S}}{4 \sqrt{(p_1 \cdot p_2)^2 - (m_1 m_2)^2} } \overline{|\mathcal{M}|^2} \left[ \frac{c \diff^3 p_3}{(2\pi)^3 2E_3} \dots \frac{c \diff^3 p_N}{(2\pi)^3 2E_N} \right] (2\pi)^4 \delta(p_1 + p_2 - p_3 - ... - p_N)
+\end{equation*}
+
+\subsection{Decay Rate Formulae}
+
+\textbf{Definition}: The decay rate is just the transition rate from a single-particle initial state at rest:
+\begin{equation*}
+\begin{split}
+    \diff \Gamma
+        &= \diff W_{1 \to f}
+        = \frac{1}{2m} |\mathcal{M}|^2 (2\pi)^4 \delta^4(p_i - p_f) \prod_f \frac{\diff^3 p_f}{(2\pi)^3 2E_f} \\
+\end{split}
+\end{equation*}
+
+
+\subsection{Interpretations of Cross Sections}
+Consider a differential cross section $\diff \sigma / \diff a$ where $a$ is some parameter. Then the probability
+the scattering occurs in a range $[a, a + \diff a]$ is
+\begin{equation*}
+    p(a) \diff a = \frac{1}{\sigma} \frac{\diff \sigma}{\diff a} \diff a
+\end{equation*}
+Let $N_i$ be the number of events measured by a detector in the $i$th bin $[a_i, a_i + \delta a]$ for some
+detector resolution $\delta a$. The total number of events collected is:
+\begin{equation*}
+    N_{tot} = \sum_i N_i 
+\end{equation*}
+Then the scattering probability is measured by
+\begin{equation*}
+    \frac{N_i}{N_{tot}} = \frac{1}{\sigma} \frac{\diff \sigma(a_i)}{\diff a} 
+\end{equation*}
+
+
+\section{Perturbation Theory}
+
+\subsection{Interaction / Dirac Picture}
+We'll be doing this with real scalar fields $\phi$. We'll omit the subscript for full theory, use
+$F$ for free theory, and $I$ for interaction picture. Furthremore, the interaction does NOT involve
+any derivatives of the field. 
+
+\textbf{Interaction Lagrangian and Hamiltonian}
+\begin{equation*}
+\begin{split}
+    \mathcal{L} &= \mathcal{L}_0 + \mathcal{L}_{int} \\
+    H &= H_0 + H_{int} = H_0 + \int \diff^3 x \, \mathcal{L}_{int} \\
+\end{split}
+\end{equation*}
+we wish to rewrite $\phi$ and the vacuum $\ket{\Omega}$ in the interacting theory in terms of $\phi_F$ and
+$\ket{0}$ in the free theory.
+
+\textbf{Interacting Field}: For $\mathcal{L}_{int}$ small perturbations, the time evolution of
+$\phi$ by $H_0$ is the dominant term:
+\begin{equation*}
+    \phi_I(t, \bm{x}) = e^{iH_0 (t-t_0)} \phi_F(t_0, \bm{x}) e^{-iH_0(t-t_0)} = \phi_F(t, \bm{x})
+\end{equation*}
+The Heisenberg picture of the full theory is related by:
+\begin{equation*}
+\begin{split}
+    \phi(t, \bm{x})
+        % &= e^{iH(t-t_0)} \phi_F(t_0, \bm{x}) e^{-iH(t-t_0)} \\
+        % &= e^{iH(t-t_0)} e^{-iH_0(t-t_0)} \phi_I(t,\bm{x}) e^{iH_0(t-t_0)} e^{-iH(t-t_0)} \\
+        &= U_I^\dagger(t, t_0) \phi_I(t, \bm{x}) U_I(t,t_0) \\
+    U_I(t,t_0) &= e^{iH_0(t-t_0)} e^{-iH(t-t_0)} \\
+\end{split}
+\end{equation*}
+
+\textbf{Interaction Picture Time Evolution}: The operator $U_I(t,t_0)$ is the time evolution operator
+in the interaction picture. It solves the Schrodinger equation with initial condition $U_I(t_0, t_0) = 1$:
+\begin{equation*}
+\begin{split}
+    i \frac{\diff }{\diff t} U(t,t_0) &= H_I(t) U(t, t_0) \\
+    H_I(t) &= e^{iH_0(t-t_0)} H_{int} e^{-iH_0(t-t_0)} \\
+\end{split}
+\end{equation*}
+Since the interaction doesn't involve derivatives of the field, $H_I$ is the same as $H_{int}$ but with
+$\phi \to \phi_I$. Expanding $U_I$ in a power series of $H_I$ and using the time ordering operator $\mathcal{T}$
+to convert the time integrals to be over $[t_0, t]$ gives the \textbf{Dysons Series}:
+\begin{equation*}
+    U(t,t_0) = \mathcal{T} \left\{ \exp\left[ -i \int_{t_0}^{t} \diff t' \, H_I \right]  \right\} 
+\end{equation*}
+
+\textbf{Interacting Picture Vacuum}: Let $\ket{n}$ be energy eigenstates of $H$ with $\ket{n=0} = \ket{\Omega}$.
+Evolution of the free vacuum in the full theory:
+\begin{equation*}
+\begin{split}
+    e^{-iHT} \ket{0}
+        &= e^{-iE_0 T} \ket{\Omega} \braket{\Omega|0} + \sum_{n \neq 0} e^{-iE_n T} \ket{n} \braket{n|0} \\
+    \ket{\Omega}
+        % &= \lim_{T \to \infty(1-i\epsilon)} \frac{e^{-i(H-E_0)T}}{\braket{\Omega|0}} \ket{0} \\
+        &= \lim_{T \to \infty(1-i\epsilon)} \frac{e^{iE_0(t_0 - (-T))}}{\braket{\Omega|0}} U(t_0, -T) \ket{0} \\
+\end{split}
+\end{equation*}
+
+\textbf{2-pt Correlator}:
+For $x^0 > y^0 > t^0$ reference time, the 2-point correlator becomes
+\begin{equation*}
+    \frac{\bra{\Omega}\phi(x) \phi(y) \ket{\Omega}}{\braket{\Omega|\Omega} }
+    = \lim_{T \to \infty(1-i\epsilon)} \frac{\bra{0}U(T,x^0) \phi_I(x) U(x^0, y^0) \phi_I(y) U(y^0, -T)\ket{0}}{\bra{0}U(T,-T)\ket{0}}
+\end{equation*}
+With the normalization $\braket{\Omega|\Omega} = 1$ and for arbitrary times $x^0$ and $y^0$:
+\begin{equation*}
+    \bra{\Omega}\mathcal{T} \phi(x) \phi(y) \ket{\Omega}
+    =
+    \lim_{T \to \infty(1-i\epsilon)} \frac{\bra{0}\mathcal{T}\left\{\phi_I(x) \phi_I(y) \exp\left[ -i\int_{-T}^T H_I(t) \diff t \right] \right\}\ket{0}}{\bra{0} \mathcal{T} \left\{ \exp \left[ -i\int_{-T}^T H_I(t) \diff t \right] \right\} \ket{0} }
+\end{equation*}
+
+\subsection{Wick's Theorem}
+
+\textbf{Creation / Annihilation Decomposition}:
+\begin{equation*}
+\begin{split}
+    \phi &= \phi^+ + \phi^- \\
+    \phi^+ \ket{0} = 0 \qquad & \qquad \bra{0} \phi^- = 0 \\
+\end{split}
+\end{equation*}
+
+\textbf{Normal Ordering}: All $\phi^+$ operators are to the right of all of the $\phi^-$ operators:
+\begin{equation*}
+\begin{split}
+    \phi(x)\phi(y)
+        &= \phi^+(x) \phi^+(y) + \phi^-(x) \phi^+(y) + \phi^+(x) \phi^-(y) + \phi^-(x) \phi^-(y) \\
+        &= \phi^+(x) \phi^+(y) + \phi^-(x) \phi^+(y) + \phi^-(y) \phi^+(x) + \phi^-(x) \phi^-(y) + [\phi(x), \phi^(y)] \\
+        &= \, \normord{\phi(x)\phi(y)} + [\phi(x), \phi(y)] \\
+    \mathcal{T} \left\{ \phi(x) \phi(y) \right\} &= \, \normord{\phi(x)\phi(y)} + D_F(x - y) \\
+\end{split}
+\end{equation*}
+where $D_F(x - y)$ is the Feynamn propagator from $x$ to $y$. The propagator is also known as a contraction
+between $\phi(x)$ and $\phi(y)$.
+
+\textbf{Wick's Theorem}:
+\begin{equation*}
+    \mathcal{T} \left\{ \phi(x_1) \dots \phi(x_N) \right\} = \, \normord{\phi(x_1) \dots \phi(x_N) + \text{ all contractions }}
+\end{equation*}
+Only fully contracted terms appear in correlation functions
+\begin{equation*}
+    \bra{0} \mathcal{T} \left\{ \phi(x_1) \dots \phi(x_N) \right\} \ket{0} = \bra{0} \text{ fully contracted terms } \ket{0}
+\end{equation*}
+
+\subsection{S-Matrix}
+\begin{defn}[S-Matrix]
+    Let $\ket{i}$ and $\ket{f}$ be initial and final states respectively. The \textbf{S-matrix} is the
+    unitary time-evolution operator between the initial and final states:
+    \begin{equation*}
+        \bra{f} S \ket{i} = \lim_{t \to \infty} \bra{f} U(t, -t) \ket{i}
+    \end{equation*}
+\end{defn}
+The initial state may be written as some creation operators at $t = -\infty$ and similarly for the
+final state at $t = \infty$. We may calculate S-matrix terms by perturbative expansions of the Dysons series:
+\begin{equation*}
+\begin{split}
+    \bra{f} S \ket{i}
+        &= \sum_{n = 0}^\infty \frac{1}{n!} \bra{f} \mathcal{T} \left[ \int H_I \diff^4 x \right]^n \ket{i} \\
+        &= \sum_{n = 0}^\infty \frac{1}{n!} \bra{0} \phi^\dagger_{f} \mathcal{T} \left[ \int H_I \diff^4 x \right]^n \phi_i \ket{0}
+        = \sum_{n = 0}^\infty \frac{1}{n!} \bra{0} \mathcal{T} \phi^\dagger_{f} \phi_i \left[ \int H_I \diff^4 x \right]^n \ket{0} \\
+\end{split}
+\end{equation*}
+Since $H_I$ is an operator made up from many field operators $\phi$, the final term may be computed via
+Wick's theorem.
+
+\subsection{External Legs}
+\textbf{Wick Contractions With External Fields}: Consider the matrix element
+\begin{equation*}
+\begin{split}
+    \bra{\bm{p}_1, \bm{p}_2} \mathcal{T}\left\{ \phi(x_1) \dots \phi(x_n) \right\} &\ket{\bm{k}_1, \bm{k}_2}
+        = \bra{\bm{p}_1, \bm{p}_2} :\phi(x_1) \dots \phi(x_n) + \text{all contractions}: \ket{\bm{k}_1, \bm{k}_2} \\
+        &= \bra{0} \phi^+(p_1) \phi^+(p_2) :\phi(x_1) \dots \phi(x_n) + \text{all contractions}: \phi^-(k_1) \phi^-(k_2) \ket{0} \\
+\end{split}
+\end{equation*}
+Note how the fields corresponding to the initial and final particles are not normal ordered, and are also
+not inside the normal ordering operator. We can define contractions of fields into the states which
+define the external leg Feynman rules. 
+
+\section{Non-Relativistic Scalar Field}
+
+\textbf{Lagrangian}:
+\begin{equation*}
+    \mathcal{L} = \psi^* i \partial_t \psi - \frac{1}{2M} (\nabla\psi)^* \cdot (\nabla\psi)
+\end{equation*}
+
+\textbf{Field Solution}:
+\begin{equation*}
+    \psi(\bm{x}) = \int \frac{\diff^3 k}{(2\pi)^3} a_k e^{i \bm{k} \cdot \bm{x}}  \qquad \qquad
+    \psi^\dagger(\bm{x}) = \int \frac{\diff^3 k}{(2\pi)^3} a^\dagger_k e^{-i \bm{k} \cdot \bm{x}} 
+\end{equation*}
+
+\section{Quantum Chromodynamics (QCD)}
+
+\subsection{Form Factors}
+\textbf{Static Form Factor}: For a static charge distribution $\rho(\bm{x})$, the form factor
+$F(\bm{q})$ is its Fourier transform:
+\begin{equation*}
+    F(\bm{q}) = \int \rho(\bm{x}) e^{i \bm{q} \cdot \bm{x}} \diff^3 x
+\end{equation*}
+The cross section for scattering off of the distribution is related to scattering off a point charge
+inside the distribution
+\begin{equation*}
+    \frac{\diff \sigma}{\diff \Omega} = \left( \frac{\diff \sigma}{\diff \Omega}  \right)_{\text{point}} |F(\bm{q})|^2 
+\end{equation*}
+
+\textbf{Proton Form Factors}: For a charge distribution in motion, we may instead rewrite their interaction
+vertex as a sum of QED vertices at all orders $i\gamma^\mu \to i\Gamma^\mu(q)$, where
+\begin{equation*}
+    i\Gamma^\mu(q) = F_1 (q^2) + \frac{\kappa}{2M} F_2(q^2) i \sigma^{\mu\nu} q_\nu
+\end{equation*}
+and $\kappa$ is the anomalous magnetic moment
+\begin{equation*}
+    \kappa = \frac{g-2}{2}
+\end{equation*}
+
+\textbf{Electric and Magnetic Form Factors}: Lab frame elastic electron-proton scattering (Rosenbluth Formula):
+\begin{equation*}
+\begin{split}
+     \left. \frac{\diff \sigma}{\diff \Omega} \right|_{lab}
+        &= \frac{\alpha^2}{4E^2 \sin^4(\theta/2)} \frac{E'}{E} \left[ \left( F_1^2 - \frac{\kappa^2 q^2}{4M^2} F_2^2 \right) \cos^2 \frac{\theta}{2} - \frac{q^2}{2M^2} (F_1 + \kappa F_2)^2 \sin^2 \frac{\theta}{2} \right] \\
+        &= \frac{\alpha^2}{4E^2 \sin^4(\theta/2)} \frac{E'}{E} \left[ \frac{G_E^2 + \tau G^2_M}{1 + \tau} \cos^2 \frac{\theta}{2} + 2\tau G^2_M \sin^2 \frac{\theta}{2} \right] \\
+     \tau &= -\frac{q^2}{4M^2} \\
+\end{split}
+\end{equation*}
+where $G_E$ and $G_M$ are linear combinations of $F_1$ and $F_2$ that make the interference terms vanish:
+\begin{equation*}
+    G_E = F_1 + \frac{\kappa q^2}{4M^2} F_2 \qquad \qquad G_M = F_1 + \kappa F_2
+\end{equation*}
+
+\subsection{Deep Inelastic Scattering}
+\textbf{Hadronic Tensor}:
+\begin{equation*}
+    W^{\mu\nu} = -W_1 g^{\mu\nu} + \frac{W_2}{M^2} p^\mu p^\nu + \frac{W_4}{M^2} q^\mu q^\nu + \frac{W_5}{M^2} (p^\mu q^\nu + q^\mu p^\nu)
+\end{equation*}
+Note that $W$ is symmetric. Current conservation implies $q_\mu W^{\mu\nu} = 0$, and
+\begin{equation*}
+    W_5 = - \frac{p \cdot q}{q^2} W_2 \qquad \qquad W_4 = \left( \frac{p \cdot q}{q^2} \right)^2 W_2 + \frac{M^2}{q^2} W_1
+\end{equation*}
+and thus in terms of $W_1$ and $W_2$:
+\begin{equation*}
+    W^{\mu\nu} = W_1 \left( -g^{\mu\nu} + \frac{q^\mu q^\nu}{q^2} \right) + W_2 \frac{1}{M^2} \left( p^\mu - \frac{p \cdot q}{q^2} q^\mu \right) \left( p^\nu - \frac{p \cdot q}{q^2} q^\nu \right) 
+\end{equation*}
+
+\section{Weak Interactions}
+
+\subsection{4-pt Approximation}
+Fermi's original guess for weak interactions was a 4-point interaction involving generalized currents.
+Compare $pe \to pe$ via EM interactions versus $pe \to n \nu_e$ via weak interaction:
+\begin{equation*}
+\begin{split}
+    \mathcal{M}_{em} &= \frac{-e^2}{q^2} \left( \overline{u}_e \gamma^\mu u_e \right) \left( \overline{u}_p \gamma_\mu u_p \right)_\mu \\
+    \mathcal{M}_{weak} &= G \left( \overline{u}_\nu \gamma^\mu u_e \right) \left( \overline{u}_n \gamma_\mu u_p \right) \\
+\end{split}
+\end{equation*}
+where $G$ is Fermi's constant.
+
+\end{document}

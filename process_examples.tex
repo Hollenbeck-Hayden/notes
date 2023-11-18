@@ -1,0 +1,197 @@
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=0.5in]{geometry}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+
+\usepackage{slashed}
+
+\setlength{\parskip}{1em}
+
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\tr}{\text{Tr}}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Defn}[section]
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{corl}{Corollary}[section]
+
+\newenvironment{problem}[1]
+    {\noindent
+    \textbf{#1})
+    }
+    {
+    \vspace{12pt}
+    }
+
+\begin{document}
+
+\section{Coulomb Scattering}
+
+\section{Bhabha Scattering}
+\begin{equation*}
+    e^-(p) + e^+(k) \to e^-(p') + e^+(k')
+\end{equation*}
+The $t$-channel matrix element:
+\begin{equation*}
+\begin{split}
+    -i\mathcal{M}_t
+        &= \left[ \overline{u}(p') (-ie\gamma^\mu) u(p) \right] \frac{-i\eta_{\mu\nu}}{(p-p')^2 + i\epsilon} \left[ \overline{v}(k) (-ie\gamma^\nu) v(k') \right] \\
+        &= \frac{ie^2}{t} \overline{u}(p') \gamma^\mu u(p) \overline{v}(k) \gamma_\mu v(k') \\
+\end{split}
+\end{equation*}
+and the $s$-channel matrix element has a relative minus sign with the $t$-channel diagram:
+\begin{equation*}
+\begin{split}
+    i\mathcal{M}_s
+        &= \left[ \overline{v}(k) (-ie\gamma^\mu) u(p) \right] \frac{-i\eta_{\mu\nu}}{s^2 + i\epsilon} \left[ \overline{u}(p')(-ie\gamma^\nu)v(k') \right] \\
+        &= \frac{ie^2}{s} \overline{v}(k) \gamma^\mu u(p) \overline{u}(p') \gamma_\mu v(k') \\
+\end{split}
+\end{equation*}
+The sum-squared matrix elements are:
+\begin{equation*}
+\begin{split}
+    |\mathcal{M}_t + \mathcal{M}_s|^2
+        &= |\mathcal{M}_t|^2 + 2\text{Re}[\mathcal{M}_t^\dagger \mathcal{M}_s] + |\mathcal{M}_s|^2 \\
+    \sum_{spins} |\mathcal{M}_t|^2
+        &= \frac{e^4}{t^2} \tr \left[ \slashed{p}' \gamma^\mu \slashed{p} \gamma^\nu \right] \tr \left[ \slashed{k} \gamma_\mu \slashed{k}' \gamma_\nu \right]  \\
+        &= \frac{e^4}{t^2} 4\left( p'^\mu p^\nu + p'^\nu p^\mu - (p \cdot p') \eta^{\mu\nu} \right) 4\left( k_\mu k'_\nu + k_\nu k'_\mu - (k \cdot k')\eta_{\mu\nu} \right) \\
+        &= \frac{32e^4}{t^2} \left( (p' \cdot k') (p \cdot k) + (p' \cdot k)(p \cdot k') \right) \\
+        &= 8e^4 \frac{s^2 + u^2}{t^2} \\
+\end{split}
+\end{equation*}
+\begin{equation*}
+\begin{split}
+    \sum_{spins} |\mathcal{M}_s|^2
+        &= \frac{e^4}{s^2} \tr \left[ (\slashed{k} - m) \gamma^\mu (\slashed{p} + m) \gamma^\nu \right] \tr \left[ (\slashed{p}' + m) \gamma_\mu (\slashed{k}' - m) \gamma_\nu \right] \\
+        &= \frac{e^4}{s^2} 4\left[ k^\mu p^\nu + k^\nu p^\mu - (k \cdot p)\eta^{\mu\nu} \right] 4\left[ p'_\mu k'_\nu + p'_\nu k'_\mu - (p' \cdot k')\eta_{\mu\nu} \right] \\
+        &= \frac{32e^4}{s^2} \left[ (k \cdot p')(p \cdot k') + (k \cdot k')(p \cdot p') \right] \\
+        &= 8e^4 \frac{u^2 + t^2}{s^2} \\
+\end{split}
+\end{equation*}
+\begin{equation*}
+\begin{split}
+    \sum_{spins} \mathcal{M}_t^\dagger \mathcal{M}_s
+        &= -\frac{e^4}{ts} \tr \left[ \overline{v}(k') \gamma_\mu v(k) \overline{v}(k) \gamma^\nu u(p) \overline{u}(p) \gamma^\mu u(p') \overline{u}(p') \gamma_\nu v(k') \right] \\
+        &= -\frac{e^4}{ts} \tr \left[ \slashed{k}' \gamma_\mu \slashed{k} \gamma^\nu \slashed{p} \gamma^\mu \slashed{p}' \gamma_\nu \right] \\
+        &= -\frac{e^4}{ts} (-2) \tr \left[ \slashed{k}' \slashed{p} \gamma^\nu \slashed{k} \slashed{p}' \gamma_\nu \right] \\
+        &= -\frac{e^4}{ts} (-8) (k \cdot p') \tr \left[ \slashed{k}' \slashed{p} \right] \\
+        &= \frac{32e^4}{st}(k \cdot p') (k' \cdot p) \\
+        &= 8e^4 \frac{u^2}{st} \\
+\end{split}
+\end{equation*}
+\begin{equation*}
+\begin{split}
+    \frac{1}{4} \sum_{spins} |\mathcal{M}_s + \mathcal{M}_t|^2
+        &= 2e^4 \left[ \frac{u^2 + t^2}{s^2} + 2\frac{u^2}{st} + \frac{s^2 + u^2}{t^2} \right] \\
+\end{split}
+\end{equation*}
+The differential cross-section is then
+\begin{equation*}
+\begin{split}
+    \frac{\diff \sigma}{\diff \Omega} 
+        &= \frac{1}{(8\pi)^2} \frac{\overline{|\mathcal{M}|^2}}{s} \\
+        &= \frac{e^4}{32\pi^2 s} \left( u^2 \left( \frac{1}{s} + \frac{1}{t} \right)^2 + \frac{s^2}{t^2} + \frac{t^2}{s^2} \right) \\
+        &= \frac{\alpha^2}{2s} \left( u^2 \left( \frac{1}{s} + \frac{1}{t} \right)^2 + \frac{s^2}{t^2} + \frac{t^2}{s^2} \right) \\
+\end{split}
+\end{equation*}
+
+\section{Muon Decay}
+\begin{equation*}
+    \mu^-(p) \to e^-(p') + \nu_\mu(k) + \overline{\nu}_{e}(k')
+\end{equation*}
+Approximating the propagator as $\sim -i/M_W^2$
+\begin{equation*}
+\begin{split}
+    -i\mathcal{M}
+        &= \left[ \frac{g}{\sqrt{2}} \overline{u}_{\nu_\mu}(k) \gamma^\mu \frac{1}{2} ( 1 - \gamma^5 ) u_\mu(p) \right] \frac{-i}{M_W^2} \left[ \frac{g}{\sqrt{2}} \overline{v}_{\nu_e}(k') \gamma_\mu \frac{1}{2}(1 - \gamma^5) u_{e}(p') \right] \\
+        &= \frac{-ig^2}{8M_W^2} \overline{u}_{\nu_\mu}(k) \gamma^\mu (1 - \gamma^5) u_\mu(p) \overline{v}_{\nu_e}(k') \gamma_\mu (1 - \gamma^5) u_e(p') \\
+    \sum_{spins} |\mathcal{M}|^2
+        &= \frac{G^2}{2} \text{Tr} \left[ \slashed{k} \gamma^\mu (1-\gamma^5) (\slashed{p} + m_\mu) \gamma^\nu (1 - \gamma^5) \right] \tr \left[ \slashed{k}' \gamma_\mu ( 1 - \gamma^5) \slashed{p}' \gamma_\nu ( 1 - \gamma^5) \right] \\
+\end{split}
+\end{equation*}
+The first trace is
+\begin{equation*}
+\begin{split}
+    L_{muon}^{\mu\nu}
+        &= \tr \left[ \slashed{k} \gamma^\mu (1 - \gamma^5) \slashed{p} \gamma^\nu (1 - \gamma^5) \right] \\
+        &= \tr \left[ \slashed{k} \gamma^\mu \slashed{p} \gamma^\nu \right] - \tr \left[ \slashed{k} \gamma^\mu \gamma^5 \slashed{p} \gamma^\nu \right] - \tr \left[ \slashed{k} \gamma^\mu \slashed{p} \gamma^\nu \gamma^5 \right] + \tr \left[ \slashed{k} \gamma^\mu \gamma^5 \slashed{p} \gamma^\nu \gamma^5 \right] \\
+        &= 2\tr \left[ \slashed{k} \gamma^\mu \slashed{p} \gamma^\nu \right] - 2\tr \left[ \slashed{k} \gamma^\mu \gamma^5 \slashed{p} \gamma^\nu \right] \\
+        &= 8(k^\mu p^\nu + k^\nu p^\mu - (k \cdot p) \eta^{\mu\nu}) - 8i\epsilon^{\mu\nu\alpha\beta} k_\alpha p_\beta \\
+\end{split}
+\end{equation*}
+The second is similarly
+\begin{equation*}
+    L_{elec}^{\mu\nu} = 8(k'^\mu p'^\nu + k'^\nu p'^\mu - (k' \cdot p')\eta^{\mu\nu} - i\epsilon^{\mu\nu\alpha\beta} k'_\alpha p'_\beta) \\
+\end{equation*}
+The amplitude squared is then:
+\begin{equation*}
+\begin{split}
+    \sum_{spins} |\mathcal{M}|^2
+        &= 32G^2 \left( 2(k \cdot k') (p \cdot p') + 2(k \cdot p')(k' \cdot p) - \epsilon^{\mu\nu\alpha\beta} \epsilon_{\mu\nu\rho\sigma} k_\alpha p_\beta k'^\rho p'^\sigma \right) \\
+        &= 64G^2 \left( (k \cdot k') (p \cdot p') + (k \cdot p')(k' \cdot p) - (\delta^\alpha_\rho \delta^\beta_\sigma - \delta^\alpha_\sigma \delta^\beta_\rho) k_\alpha p_\beta k'^\rho p'^\sigma \right) \\
+        &= 128G^2 (k \cdot p') (p \cdot k') \\
+    \frac{1}{2} \sum_{spins} |\mathcal{M}|^2 &= 64 G^2 (k \cdot p') (p \cdot k') \\
+\end{split}
+\end{equation*}
+The decay rate is then
+\begin{equation*}
+\begin{split}
+    \diff \Gamma
+        &= \frac{1}{2m_\mu} \overline{|\mathcal{M}|^2} (2\pi)^4 \delta^4(p - p' - k - k') \frac{d^3p'}{(2\pi)^3 2E'} \frac{\diff^3 k}{(2\pi)^3 2\omega} \frac{\diff^3 k'}{(2\pi)^3 2\omega'} \\
+        &= \frac{1}{2m_\mu} \overline{|\mathcal{M}|^2} (2\pi)^4 \delta^4(p - p' - k - k') \frac{d^3 p'}{(2\pi)^3 2E'} \frac{\diff^3 k'}{(2\pi)^3 2\omega'} \diff^4 k \, \theta(\omega) \delta(k^2) \\
+        &= \frac{1}{2m_\mu} \overline{|\mathcal{M}|^2} \frac{1}{(2\pi)^5} \frac{\diff^3 p'}{2E'} \frac{\diff^3 k'}{2\omega'} \theta(m_\mu - E' - \omega') \delta((p - p' - k')^2) \\
+\end{split}
+\end{equation*}
+We may use the 4-momentum conservation to rewrite the amplitude as
+\begin{equation*}
+\begin{split}
+    k \cdot p' &= \frac{(k - p')^2 - k^2 - (p')^2}{2} = \frac{1}{2} (k' - p)^2 = \frac{1}{2}((\omega' - m_\mu)^2 - (\omega')^2) = \frac{1}{2} m_\mu (m_\mu - 2\omega') \\
+    p \cdot k' &= \omega' m_\mu \\
+    \overline{|\mathcal{M}|^2} &= 32 G^2 \omega' m_\mu^2 (m_\mu - 2\omega') \\
+\end{split}
+\end{equation*}
+\begin{equation*}
+\begin{split}
+    \Gamma
+        &= \frac{m_\mu G^2}{2\pi^5} \int \omega'(m_\mu - 2\omega') \frac{\diff^3 p'}{2E'} \frac{\diff^3 k'}{2\omega'} \theta(m_\mu - E' - \omega') \delta\left(m_\mu^2 - 2m_\mu (E' + \omega') -2 p' \cdot k'\right) \\
+        &= \frac{m_\mu G^2}{2\pi^5} \int \omega'(m_\mu - 2\omega') \frac{4\pi (E')^2 \diff E'}{2E'} \frac{2\pi (\omega')^2 \diff\omega' \diff \cos\theta}{2\omega'} \\
+        &\qquad \qquad \times \theta(m_\mu - E' - \omega') \delta\left(m_\mu^2 - 2m_\mu (E' + \omega') + 2E'\omega'(1-\cos\theta)\right) \\
+\end{split}
+\end{equation*}
+The integration of the $\delta$-function of $\cos\theta$ is over the interval $[-1,1]$, so we gain the
+conditions:
+\begin{equation*}
+\begin{split}
+    0 &= m_\mu^2 - 2m_\mu (E' + \omega') + 2E'\omega'(1 - \cos\theta) \\
+    |\cos\theta| &= \left| 1 + \frac{m_\mu (m_\mu - 2E' - 2\omega')}{2E'\omega'} \right| \leq 1 \\
+    1 + \frac{m_\mu (m_\mu - 2E' - 2\omega')}{2E'\omega'} &\leq 1 \\
+    m_\mu - 2E' - 2\omega' &\leq 0 \\
+    \frac{1}{2} m_\mu - E' &\leq \omega' \\
+    1 + \frac{m_\mu(m_\mu - 2E' - 2\omega')}{2E'\omega'} &\geq -1 \\
+    m_\mu^2 - 2m_\mu E' - 2m_\mu \omega' &\geq -4E'\omega' \\
+    m_\mu(m_\mu - 2E') &\geq 2\omega'(m_\mu - 2E') \\
+    \omega' &\leq \frac{1}{2} m_\mu \qquad \text{ and } \qquad 0 \leq E' \leq \frac{1}{2} m_\mu \\
+\end{split}
+\end{equation*}
+Furthermore there's a $1/2E'\omega'$ factor from integrating the $\delta$-function over $\cos\theta$:
+\begin{equation*}
+\begin{split}
+    \Gamma
+        &= \frac{m_\mu G^2}{2\pi^5} \int_0^{m_\mu/2} \diff E' \int_{\frac{1}{2}m_\mu - E'}^{m_\mu/2} \diff \omega' \frac{4\pi(E')^2}{2E'} \frac{2\pi(\omega')^2}{2\omega'} \omega'(m_\mu - 2\omega') \frac{1}{2E'\omega'} \\
+        &= \frac{m_\mu G^2}{2\pi^3} \int_0^{m_\mu/2} \diff E' \left[ m_\mu \frac{\omega'^2}{2} - \frac{2\omega'^3}{3} \right]_{\frac{1}{2}m_\mu - E'}^{m_\mu/2} \\
+        &= \frac{m_\mu G^2}{2\pi^3} \int_0^{m_\mu/2} \diff E' \left[ \frac{m_\mu^3}{8} - \frac{m_\mu^3}{12} - \frac{m_\mu}{2}\left( \frac{1}{2}m_\mu - E' \right)^2 + \frac{2}{3} \left( \frac{1}{2}m_\mu - E' \right)^3 \right] \\
+        &= \frac{m_\mu G^2}{2\pi^3} \int_0^{m_\mu/2} \diff E' \left[ \frac{1}{2} m_\mu E'^2 - \frac{2}{3} E'^3 \right] \\
+        &= \frac{m_\mu G^2}{2\pi^3} \left[ \frac{1}{6} m_\mu E'^3 - \frac{1}{6} E'^4 \right]_0^{m_\mu/2} \\
+        &= \frac{m_\mu^5 G^2}{196 \pi^3} \approx 3.0019 \times 10^{-19} \text{ GeV} = \frac{\hbar}{2.187 \text{ } \mu \text{s}} \\
+\end{split}
+\end{equation*}
+The actual mean lifetime is $2.2 \text{ }\mu\text{s}$, so first order is pretty close!
+
+\end{document}

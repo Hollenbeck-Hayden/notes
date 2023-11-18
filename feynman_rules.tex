@@ -159,6 +159,62 @@ Crossing symmetry lets us reuse matrix element calculations by just swapping Man
 
 \subsection{Gamma Matrices}
 
+\textbf{Transformation Laws}: This is just a dump of identities, sorry!
+
+Lorentz algebra:
+\begin{equation*}
+\begin{split}
+    J^{\mu\nu} &= i \left( x^\mu \partial^\nu - x^\nu \partial^\mu \right) \\
+    [J^{\mu\nu}, J^{\rho\sigma}] &= i(\eta^{\nu\rho} J^{\mu\sigma} + \eta^{\mu\sigma} J^{\nu\rho} - \eta^{\mu\rho} J^{\nu\sigma} - \eta^{\nu\sigma} J^{\mu\rho}) \\
+    \Phi &\to \Lambda \Phi \approx (1 - \frac{i}{2} \omega_{\mu\nu} A^{\mu\nu} ) \Phi \\
+    \Lambda(\omega) &= \exp\left( -\frac{i}{2} \omega_{\mu\nu} A^{\mu\nu} \right)  \\
+\end{split}
+\end{equation*}
+where $\Phi$ is some (possibly indexed) field, and $A^{\mu\nu}$ are the set of generators acting on that
+field. Note that $\omega_{\mu\nu}$ is antisymmetric.
+
+Scalar Fields: $A^{\mu\nu} = 0$, i.e. the fields don't transform under Lorentz transformations.
+
+Vector Fields:
+\begin{equation*}
+\begin{split}
+    V^\alpha &\to (\delta^{\alpha}_{\beta} - \frac{i}{2} \omega_{\mu\nu} (\mathcal{J}^{\mu\nu})^\alpha_\beta) V^\beta \\
+    (\mathcal{J}^{\mu\nu})_{\alpha\beta} &= i \left( \delta^\mu_\alpha \delta^\nu_\beta - \delta^\mu_\beta \delta^\nu_\alpha \right) \\
+\end{split}
+\end{equation*}
+
+Spinor Fields:
+\begin{equation*}
+\begin{split}
+    \psi &\to (1 - \frac{i}{2} \omega_{\mu\nu} S^{\mu\nu}) \psi \\
+    S^{\mu\nu} &= \frac{i}{4} [\gamma^\mu, \gamma^\nu] \\
+    \Lambda_{1/2} &= \exp\left( -\frac{i}{2} \omega_{\mu\nu} S^{\mu\nu} \right) \\
+\end{split}
+\end{equation*}
+
+Gamma matrix vector transforms like a 4-vector under Lorentz transformations:
+\begin{equation*}
+\begin{split}
+    [\gamma^\mu, S^{\rho\sigma}] &= (\mathcal{J}^{\rho\sigma})^\mu_\nu \gamma^\nu \\
+    (1 + \frac{i}{2} \omega_{\rho\sigma} S^{\rho\sigma}) \gamma^\mu (1 - \frac{i}{2} \omega_{\rho\sigma} S^{\rho\sigma}) &= (1 - \frac{i}{2} \omega_{\rho\sigma} \mathcal{J}^{\rho\sigma})^\mu_\nu \gamma^\nu \\
+    \Lambda^{-1}_{1/2} \gamma^\mu \Lambda_{1/2} &= \Lambda^\mu_\nu \gamma^\nu \\
+\end{split}
+\end{equation*}
+
+
+\textbf{Gamma-5 Matrix}:
+\begin{equation*}
+    \gamma^5 = i \gamma^0 \gamma^1 \gamma^2 \gamma^3 = -\frac{i}{4!} \epsilon^{\mu\nu\rho\sigma} \gamma_\mu \gamma_\nu \gamma_\rho \gamma_\sigma
+\end{equation*}
+Properties
+\begin{equation*}
+\begin{split}
+    (\gamma^5)^\dagger &= \gamma^5 \\
+    (\gamma^5)^2 &= 1 \\
+    \left\{ \gamma^\mu, \gamma^5 \right\} &= 0 \\
+\end{split}
+\end{equation*}
+
 \textbf{Dirac Representation}:
 
 \textbf{Chiral Representation}:
@@ -168,6 +224,51 @@ Crossing symmetry lets us reuse matrix element calculations by just swapping Man
     \gamma^0 (\gamma^\mu)^\dagger \gamma^0 = \gamma^\mu \\
 \end{equation*}
 
+\textbf{Dirac Bilinears}: A Dirac bilinear is the combination $\overline{\psi} \Gamma \psi$ where
+$\Gamma$ is an 4x4 matrix. We may define a basis for these matrices using the $\gamma^\mu$ matrices:
+\begin{center}
+    \begin{tabular}{c c c c}
+        Name & Expression & Asym. Expression & Count \\
+        \hline
+        Scalar & 1 & 1 & 1 \\
+        Vector & $\gamma^\mu$ & $\gamma^\mu$ & 4 \\
+        Tensor & $\sigma^{\mu\nu}$ & $\gamma^{[\mu} \gamma^{\nu]}$ & 6 \\
+        Pseudo-Vector & $\gamma^\mu \gamma^5$ & $\gamma^{[\mu} \gamma^\nu \gamma^{\rho]}$ & 4 \\
+        Pseudo-Scalar & $\gamma^5$ & $\gamma^{[\mu} \gamma^\nu \gamma^\rho \gamma^{\sigma]}$ & 1 \\
+    \end{tabular}
+\end{center}
+where
+\begin{equation*}
+    \sigma^{\mu\nu} = \frac{i}{2} [\gamma^\mu, \gamma^\nu]
+\end{equation*}
+Dirac bilinears behave nicely under conjugation:
+\begin{equation*}
+\begin{split}
+    (\overline{\psi}' \psi)^\dagger &= \psi^\dagger \gamma^0 \psi' = \overline{\psi} \psi' \\
+    (\overline{\psi}' \gamma^\mu \psi)^\dagger &= \psi^\dagger \gamma^{\mu\dagger} \gamma^0 \psi' = \psi^\dagger \gamma^0 \gamma^0 \gamma^{\mu\dagger} \gamma^0 \psi' = \overline{\psi} \gamma^\mu \psi' \\
+    (\overline{\psi}' \sigma^{\mu\nu} \psi)^\dagger &= \overline{\psi} \gamma^0 \frac{-i}{2} (\gamma^{\nu\dagger} \gamma^{\mu\dagger} - \gamma^{\mu\dagger} \gamma^{\nu\dagger}) \gamma^0 \psi' = - \overline{\psi} \sigma^{\nu\mu} \psi' = \overline{\psi} \sigma^{\mu\nu} \psi' \\
+    (\overline{\psi}' \gamma^\mu \gamma^5 \psi)^\dagger &= \overline{\psi} \gamma^0 \gamma^5 \gamma^{\mu\dagger} \gamma^0 \psi' = \overline{\psi} \gamma^0 \gamma^{\mu\dagger} \gamma^0 \gamma^5 \psi' = \overline{\psi} \gamma^\mu \gamma^5 \psi' \\
+    (\overline{\psi}' \gamma^5 \psi)^\dagger &= \overline{\psi} \gamma^0 \gamma^5 \gamma^0 \psi' = -\overline{\psi} \gamma^5 \psi' \\
+\end{split}
+\end{equation*}
+
+\textbf{Vector and Axial Currents}:
+\begin{equation*}
+    j^\mu_V = \overline{\psi} \gamma^\mu \psi \qquad \qquad j^\mu_A = \overline{\psi} \gamma^\mu \gamma^5 \psi
+\end{equation*}
+They are conserved if the Lagrangian respects the unitary or chiral transformations respectively:
+\begin{equation*}
+    \psi \to e^{i\alpha} \psi \qquad \qquad \psi \to e^{i\alpha\gamma^5} \psi
+\end{equation*}
+$V-A$ as per the weak interaction couples only left-handed fermions to right-handed antifermions:
+\begin{equation*}
+\begin{split}
+    j^\mu_V - j^\mu_A
+        &= \overline{\psi} \gamma^\mu (1 - \gamma^5) \psi = 2 \overline{\psi}_R \gamma^\mu \psi_L \\
+\end{split}
+\end{equation*}
+
+\textbf{Fierz Identities}
 
 \subsection{Spinors}
 
@@ -246,7 +347,7 @@ Massless fermions therefore may be decomposed into left and right handed Weyl sp
 \subsection{Chirality}
 \textbf{Handedness Projection Operators}:
 \begin{equation*}
-    P_L = \frac{1 - \gamma^5}{2} \qquad \qquad P_R = \frac{1 - \gamma^5}{2}
+    P_L = \frac{1 - \gamma^5}{2} \qquad \qquad P_R = \frac{1 + \gamma^5}{2}
 \end{equation*}
 Identities (where $h = L,R$ and $\overline{h}$ is the opposite handedness of $h$):
 \begin{equation*}
@@ -257,12 +358,15 @@ Identities (where $h = L,R$ and $\overline{h}$ is the opposite handedness of $h$
     P_h^\dagger &= P_h \\
 \end{split}
 \end{equation*}
+\textbf{Chirality Eigenstates}: 
+\begin{equation*}
+    u_h = P_h u \qquad \qquad \overline{u}_h = \overline{u} P_h \\
+\end{equation*}
+Identities
 \begin{equation*}
 \begin{split}
-    u_L &= P_L u \\
-    \overline{u} P_L &= u^\dagger \gamma^0 P_L \\
-        &= u^\dagger P_R \gamma^0 \\
-        &= u_R \gamma^0 = \overline{u}_R \\
+    \overline{u_h}
+        &= (P_h u)^\dagger \gamma^0 = u^\dagger \gamma^0 P_{\overline{h}} = \overline{u}_{\overline{h}} \\
 \end{split}
 \end{equation*}
 
@@ -388,14 +492,39 @@ CoM frame of the products:
             \end{pmatrix}
             +
             \begin{pmatrix}
-                \sum_i E_i \\ 0
+                \sum_i E_{i,new} \\ 0
             \end{pmatrix}
 \end{split}
 \end{equation*}
-Then $E_{new} = E_{0,new} - \sum E_{i,new}$ is minimized when there's no relative kinetic energy between the
+Then $E_{new} = E_{0,new} - \sum E_{i,new}$ is maximized when there's no relative kinetic energy between the
 other products and $E_{i,new} = m_i$. The invariant mass gives
 \begin{equation*}
-    \left( \sum_i m_i \right)^2 = (p')^2 = \left( \sum_i E_i \right)^2 - \bm{p}^2
+\begin{split}
+    p' &= \sum_i
+        \begin{pmatrix}
+            E_i \\ \bm{p}_i
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            \sum_i E_i \\ \sum_i \bm{p}_i \\
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            \sum_i E_i \\ - \bm{p} \\
+        \end{pmatrix} \\
+    (p')^2 &= \left( \sum_i E_i \right)^2 - \bm{p}^2 \\
+    p'_{new}
+        &=
+        \begin{pmatrix}
+            \sum_i E_{i,new} \\ 0 \\
+        \end{pmatrix}
+        \to
+        \begin{pmatrix}
+            \sum_i m_i \\ 0 \\
+        \end{pmatrix} \\
+    (p'_{new})^2 &= \left( \sum_i m_i \right)^2 \\
+    \left( \sum_i m_i \right)^2 = (p')^2 &= (p'_{new})^2 = \left( \sum_i E_i \right)^2 - \bm{p}^2 \\
+\end{split}
 \end{equation*}
 So the original CoM energy conservation gives
 \begin{equation*}
@@ -767,6 +896,23 @@ Compare $pe \to pe$ via EM interactions versus $pe \to n \nu_e$ via weak interac
     \mathcal{M}_{weak} &= G \left( \overline{u}_\nu \gamma^\mu u_e \right) \left( \overline{u}_n \gamma_\mu u_p \right) \\
 \end{split}
 \end{equation*}
-where $G$ is Fermi's constant.
+where $G$ is Fermi's constant. Since weak interactions are maximally parity violating, the EM currents
+need to be upgraded to $V-A$ currents:
+\begin{equation*}
+    \overline{u}_\nu \gamma^\mu u_e \to \overline{u}_\nu \gamma^\mu \frac{1}{2} (1 - \gamma^5) u_e
+\end{equation*}
+with $G \to 4G/\sqrt{2}$.
+
+\subsection{W Bosons}
+\textbf{Propagator}: in some gauge?
+\begin{equation*}
+    \frac{i \eta^{\mu\nu} - \frac{k^\mu k^\nu}{M_W^2}}{k^2 - M_W^2 + i\epsilon}
+\end{equation*}
+
+\textbf{Vertex}:
+\begin{equation*}
+    \frac{g}{\sqrt{2}} \qquad \qquad \text{ where } \qquad \frac{G}{\sqrt{2} } = \frac{g^2}{8M_W^2}
+\end{equation*}
+
 
 \end{document}
